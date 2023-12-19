@@ -211,6 +211,7 @@ nav {
 
     .profile-menu {
       modus-tooltip {
+
         img.avatar,
         .initials {
           background-color: $modus-navbar-blue-icon-color;
@@ -246,5 +247,31 @@ nav {
         display: none;
       }
     }
+  }
+}
+
+.skip-main-content {
+  align-items: center;
+  background: $col_gray_light;
+  display: flex;
+  height: 56px;
+  justify-content: center;
+  margin-top: -56px;
+  position: relative;
+  width: 100%;
+
+  a {
+    background: $col_trimble_blue;
+    color: $col_white;
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    padding: 4px 16px;
+    text-decoration: underline;
+  }
+
+  &:has(a:focus) {
+    margin-top: 0;
   }
 }

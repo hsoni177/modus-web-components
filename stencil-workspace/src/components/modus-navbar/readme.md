@@ -14,6 +14,7 @@
 | `enableSearchOverlay`  | `enable-search-overlay`  | (optional) Whether to show search overlay or not.                                                                                                                                       | `boolean`                 | `undefined` |
 | `helpUrl`              | `help-url`               | (optional) Help URL.                                                                                                                                                                    | `string`                  | `undefined` |
 | `logoOptions`          | --                       | (optional) Set the primary logo to display when the screen size is greater than 576 pixels, and the secondary logo to display when the screen size is less than or equal to 576 pixels. | `ModusNavbarLogoOptions`  | `undefined` |
+| `mainContentId`        | `main-content-id`        | Skip to main content target id.                                                                                                                                                         | `string`                  | `undefined` |
 | `profileMenuOptions`   | --                       | (required) Profile menu options.                                                                                                                                                        | `ModusProfileMenuOptions` | `undefined` |
 | `reverse`              | `reverse`                | (optional) Whether to display the navbar items in reverse order.                                                                                                                        | `boolean`                 | `undefined` |
 | `searchTooltip`        | --                       | (optional) Search tooltip.                                                                                                                                                              | `ModusNavbarTooltip`      | `undefined` |
@@ -37,7 +38,7 @@
 | `helpOpen`                | An event that fires when the help link opens.                           | `CustomEvent<void>`                        |
 | `mainMenuClick`           | An event that fires on main menu click.                                 | `CustomEvent<KeyboardEvent \| MouseEvent>` |
 | `notificationsMenuOpen`   | An event that fires when the notifications menu opens.                  | `CustomEvent<void>`                        |
-| `productLogoClick`        | An event that fires on product logo click.                              | `CustomEvent<MouseEvent>`                  |
+| `productLogoClick`        | An event that fires on product logo click.                              | `CustomEvent<KeyboardEvent \| MouseEvent>` |
 | `profileMenuLinkClick`    | An event that fires on profile menu link click.                         | `CustomEvent<string>`                      |
 | `profileMenuOpen`         | An event that fires when the profile menu opens.                        | `CustomEvent<void>`                        |
 | `profileMenuSignOutClick` | An event that fires on profile menu sign out click.                     | `CustomEvent<KeyboardEvent \| MouseEvent>` |

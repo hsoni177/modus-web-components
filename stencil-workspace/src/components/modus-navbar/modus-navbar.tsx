@@ -88,6 +88,9 @@ export class ModusNavbar {
   /** (optional) Color variants for NavBar. */
   @Prop() variant: 'default' | 'blue' = 'default';
 
+  /** Skip to main content target id. */
+  @Prop() mainContentId: string;
+
   /** An event that fires when the apps menu opens. */
   @Event() appsMenuOpen: EventEmitter<void>;
 
@@ -107,7 +110,7 @@ export class ModusNavbar {
   @Event() notificationsMenuOpen: EventEmitter<void>;
 
   /** An event that fires on product logo click. */
-  @Event() productLogoClick: EventEmitter<MouseEvent>;
+  @Event() productLogoClick: EventEmitter<KeyboardEvent | MouseEvent>;
 
   /** An event that fires on profile menu link click. */
   @Event() profileMenuLinkClick: EventEmitter<string>;
@@ -330,6 +333,14 @@ export class ModusNavbar {
     }
   }
 
+  productLogoKeydownHandler(event: KeyboardEvent): void {
+    if (event.code !== 'Enter') {
+      return;
+    }
+
+    this.productLogoClick.emit(event);
+  }
+
   render(): unknown {
     const direction = this.reverse ? 'reverse' : '';
     const shadow = this.showShadow ? 'shadow' : '';
@@ -345,6 +356,13 @@ export class ModusNavbar {
 
     return (
       <Host id={this.componentId}>
+        {this.mainContentId && (
+          <div class="skip-main-content">
+            <a id="skip-main-content-button" href={'#' + this.mainContentId}>
+              Skip to main content
+            </a>
+          </div>
+        )}
         <nav class={`${direction} ${shadow} ${variant}`}>
           {!this.searchOverlayVisible && (
             <Fragment>
@@ -366,7 +384,11 @@ export class ModusNavbar {
                   </modus-navbar-main-menu>
                 )}
                 {this.logoOptions && (
-                  <ModusNavbarProductLogo logos={this.logoOptions} onClick={(event) => this.productLogoClick.emit(event)} />
+                  <ModusNavbarProductLogo
+                    logos={this.logoOptions}
+                    onClick={(event) => this.productLogoClick.emit(event)}
+                    onKeyDown={(event) => this.productLogoKeydownHandler(event)}
+                  />
                 )}
               </div>
               <div class={`right ${direction}`}>

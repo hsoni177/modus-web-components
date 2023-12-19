@@ -5,11 +5,12 @@ import { ModusNavbarLogoOptions } from '../modus-navbar.models';
 export const ModusNavbarProductLogo: FunctionalComponent<{
   logos: ModusNavbarLogoOptions;
   onClick?: (event) => void;
-}> = ({ logos, onClick }) => {
+  onKeyDown?: (event) => void;
+}> = ({ logos, onClick, onKeyDown }) => {
   const { primary, secondary } = logos || {};
 
   return (
-    <div onClick={onClick} class="product-logo">
+    <div onClick={onClick} class="product-logo" tabIndex={0} onKeyDown={onKeyDown}>
       {primary && (
         <img
           class={secondary && 'product-logo-primary'}

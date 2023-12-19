@@ -439,4 +439,45 @@ describe('modus-navbar', () => {
 
     expect(profileMenuSignOutClickEvent).toHaveReceivedEvent();
   });
+
+  it('should skip to main content on first tab key', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<modus-navbar  main-contet-id="text-main"></modus-navbar>');
+    await page.waitForChanges();
+
+    await page.keyboard.press('Tab');
+    await page.waitForChanges();
+
+    const focusElement = await page.find('modus-navbar >>> :focus');
+    const skipButton = await page.find('modus-navbar >>> #skip-main-content-button');
+    expect(focusElement.id).toEqual(skipButton.id);
+  });
+
+  it('should trigger enter key event on logo', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<modus-navbar></modus-navbar>');
+    await page.waitForChanges();
+
+    const navbar = await page.find('modus-navbar');
+    navbar.setProperty('logoOptions', {
+      primary: {
+        url: 'https://modus-bootstrap.trimble.com/img/trimble-logo-rev.svg',
+        height: 24,
+      },
+    });
+    await page.waitForChanges();
+
+    const productLogoClick = await navbar.spyOnEvent('productLogoClick');
+    const productLogo = await page.find('modus-navbar >>> .product-logo');
+
+    await productLogo.focus();
+    await page.waitForChanges();
+
+    await page.keyboard.press('Enter');
+    await page.waitForChanges();
+
+    expect(productLogoClick).toHaveReceivedEvent();
+  });
 });

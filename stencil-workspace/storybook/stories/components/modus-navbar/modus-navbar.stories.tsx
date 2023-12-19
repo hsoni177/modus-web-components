@@ -35,6 +35,14 @@ export default {
         type: { summary: 'ModusNavbarButton[]' },
       },
     },
+    mainContentId: {
+      name: 'main-content-id',
+      description: 'Set the target element id for Skip to main content',
+      table: {
+        defaultValue: { summary: 'test' },
+        type: { summary: 'string' },
+      },
+    },
   },
   parameters: {
     actions: {
@@ -51,14 +59,16 @@ export default {
     viewMode: 'docs',
   },
 };
+const skipToMainContentTemplate = (mainContentId) => html`<div id="${mainContentId}" tabindex="0">Main Content</div>`;
 
-const Template = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay }) => html`
+const Template = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay, mainContentId }) => html`
   <modus-navbar
     id="working"
     enable-search-overlay=${enableSearchOverlay}
     show-search=${showSearch}
     show-apps-menu
-    show-main-menu>
+    show-main-menu
+    main-content-id=${mainContentId}>
     <div slot="main" style="height:300px;">Render your own main menu.</div>
 
       <modus-list slot="addMenu">
@@ -69,6 +79,7 @@ const Template = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay
     <div slot="notificationMenu">Render your own notification menu.</div>
     <div slot="profileMenu">Render your own profile menu content.</div>
   </modus-navbar>
+  ${mainContentId && skipToMainContentTemplate(mainContentId)}
   ${setNavbar(true, '#working', profileMenuOptions, '', '', buttons)}
 `;
 export const Default = Template.bind({});
@@ -104,9 +115,10 @@ Default.args = {
   ],
   showSearch: false,
   enableSearchOverlay: false,
+  mainContentId: 'test'
 };
 
-const FailedToLoadAvatarTemplate = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay }) => html`
+const FailedToLoadAvatarTemplate = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay, mainContentId }) => html`
   <modus-navbar
     id="broken"
     enable-search-overlay=${enableSearchOverlay}
@@ -114,10 +126,12 @@ const FailedToLoadAvatarTemplate = ({ profileMenuOptions, buttons, showSearch, e
     show-apps-menu
     show-help
     show-main-menu
-    show-notifications>
+    show-notifications
+    main-content-id=${mainContentId}>
     <div slot="main" style="height:300px;">Render your own main menu.</div>
     <div slot="notifications">Render your own notifications.</div>
   </modus-navbar>
+  ${mainContentId && skipToMainContentTemplate(mainContentId)}
   ${setNavbar(false, '#broken', profileMenuOptions, '', '', buttons)}
 `;
 export const FailedAvatar = FailedToLoadAvatarTemplate.bind({});
@@ -130,8 +144,9 @@ FailedAvatar.args = {
   buttons: [],
   showSearch: false,
   enableSearchOverlay: false,
+  mainContentId: 'test'
 };
-const BlueTemplate = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay }) => html`
+const BlueTemplate = ({ profileMenuOptions, buttons, showSearch, enableSearchOverlay, mainContentId }) => html`
   <modus-navbar
     id="blue-theme"
     enable-search-overlay=${enableSearchOverlay}
@@ -140,10 +155,12 @@ const BlueTemplate = ({ profileMenuOptions, buttons, showSearch, enableSearchOve
     show-help
     show-main-menu
     show-notifications
-    variant="blue">
+    variant="blue"
+    main-content-id=${mainContentId}>
     <div slot="main" style="height:300px;">Render your own main menu.</div>
     <div slot="notifications">Render your own notifications.</div>
   </modus-navbar>
+  ${mainContentId && skipToMainContentTemplate(mainContentId)}
   ${setNavbar(
   false,
   '#blue-theme',
@@ -163,6 +180,7 @@ BlueNavbar.args = {
   buttons: [],
   showSearch: false,
   enableSearchOverlay: false,
+  mainContentId: 'test'
 };
 
 const setNavbar = (
